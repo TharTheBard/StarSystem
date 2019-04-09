@@ -1,1 +1,6 @@
+# Distribution / Packaging
 venv
+
+
+# Pycharm
+*.idea

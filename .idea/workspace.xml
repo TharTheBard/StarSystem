@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0645e76-f1e5-490b-ad5a-643ef618462b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Content/Physics.py" beforeDir="false" afterPath="$PROJECT_DIR$/content/Physics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Planet.py" beforeDir="false" afterPath="$PROJECT_DIR$/content/Planet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Renderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/content/Renderer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarSystem.py" beforeDir="false" afterPath="$PROJECT_DIR$/content/StarSystem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,11 +12,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
               <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -35,6 +40,7 @@
       <list>
         <option value="$PROJECT_DIR$/Content/StarSystem.py" />
         <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -68,17 +74,6 @@
               <item name="StarSystem" type="b2602c69:ProjectViewProjectNode" />
               <item name="StarSystem" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="StarSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StarSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StarSystem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StarSystem" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -86,6 +81,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -115,6 +111,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1080" y="45" width="1920" height="1035" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -136,9 +133,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Content/StarSystem.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -153,6 +147,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
