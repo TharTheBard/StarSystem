@@ -1,9 +1,9 @@
 import pygame
 import random
 import math
-from Content.Renderer import Renderer
-from Content.Planet import Planet, Star
-from Content.Physics import Physics
+from .Renderer import Renderer
+from .Planet import Planet, Star
+from .Physics import Physics
 
 class StarSystem:
     def __init__(self):
