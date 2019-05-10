@@ -1,3 +1,3 @@
-from content import StarSystem
+from content import star_system
 
-StarSystem.StarSystem().run()
+star_system.StarSystem().run()
