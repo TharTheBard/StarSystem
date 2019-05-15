@@ -5,16 +5,22 @@ def circle(Renderer, color, pos, radius, width=0):
     pygame.draw.circle(Renderer.window, color, objectPositionInt, int(radius / Renderer.kmPerPixel), width)
 
 def rect(Renderer, color, Rect, width=0):
-    pos1 = point_at_scale((Rect.left, Rect.top), Renderer.kmPerPixel, Renderer.resolution, Renderer.focus)
-    pos2 = point_at_scale((Rect.bottom, Rect.right), Renderer.kmPerPixel, Renderer.resolution, Renderer.focus)
+    left_top = point_at_scale((Rect.x - Rect.half_width, Rect.y - Rect.half_height), Renderer.kmPerPixel, Renderer.resolution, Renderer.focus)
     pygame.draw.rect(Renderer.window,
                      color,
-                     (pos1[0], pos1[1], pos2[0], pos2[1]),
+                     (left_top[0], left_top[1], Rect.width / Renderer.kmPerPixel, Rect.height / Renderer.kmPerPixel),
                      width,
                     )
+
+def polygon(Renderer, color, pointlist, width=0):
+    scaled_points = []
+    for point in pointlist:
+        scaled_points.append(point_at_scale(point, Renderer.kmPerPixel, Renderer.resolution, Renderer.focus))
+
+    pygame.draw.polygon(Renderer.window, color, scaled_points, width)
 
 def point_at_scale(position, kmPerPixel, resolution, focus):
     return (
         int(position[0] / kmPerPixel) + (resolution[0] // 2) - focus[0],
-        int(position[1] / kmPerPixel) + (resolution[1] // 2) - focus[1]
+        int(position[1] / kmPerPixel) + (resolution[1] // 2) - focus[1],
     )

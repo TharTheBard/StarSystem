@@ -5,8 +5,8 @@ import numpy
 
 class Physics:
     @staticmethod
-    def update_positions(systemObjects, millisecondsPassed):
-        for sysObject in systemObjects:
+    def update_positions(objects, millisecondsPassed):
+        for sysObject in objects:
             # Conversion: km/second -> km/frame :
             frameVelocityVector = (
             sysObject.velocityVector[0] / millisecondsPassed, sysObject.velocityVector[1] / millisecondsPassed)
@@ -14,14 +14,14 @@ class Physics:
             sysObject.position = (
             sysObject.position[0] + frameVelocityVector[0], sysObject.position[1] + frameVelocityVector[1])
 
-    def gravity(self, systemObjects):
-        for sysObject in systemObjects:
+    def gravity(self, objects):
+        for sysObject in objects:
             if not sysObject.isMovable:
                 continue
-            self.object_velocity_update(sysObject, systemObjects)
+            self.object_velocity_update(sysObject, objects)
 
-    def object_velocity_update(self, currentObject, systemObjects):
-        for sysObject in systemObjects:
+    def object_velocity_update(self, currentObject, objects):
+        for sysObject in objects:
             if currentObject == sysObject:
                 continue
             gravAcc = self.get_grav_acc_to_object(currentObject, sysObject)
