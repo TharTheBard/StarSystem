@@ -12,17 +12,17 @@ class Renderer:
         self.focus = settings.INIT_FOCUS
 
         self.window = pygame.display.set_mode(self.resolution)
-        self.show_quadtree = True
+        self.show_quadtree = False
 
     def clear_screen(self):
         self.window.fill((0, 0, 0))
 
     def draw_all_objects(self, assets):
+        for sysObject in assets['objects']:
+            draw.circle(self, (255, 0, 100), sysObject.centre_of_mass, sysObject.radius)
+
         if self.show_quadtree:
             self.draw_quadtree(assets['quadtree'])
-
-        for sysObject in assets['objects']:
-            draw.circle(self, (255, 0, 100), sysObject.position, sysObject.radius)
 
         pygame.display.update()
 

@@ -1,4 +1,5 @@
 import pygame
+import random
 
 def circle(Renderer, color, pos, radius, width=0):
     objectPositionInt = point_at_scale(pos, Renderer.kmPerPixel, Renderer.resolution, Renderer.focus)
@@ -23,4 +24,11 @@ def point_at_scale(position, kmPerPixel, resolution, focus):
     return (
         int(position[0] / kmPerPixel) + (resolution[0] // 2) - focus[0],
         int(position[1] / kmPerPixel) + (resolution[1] // 2) - focus[1],
+    )
+
+def rand_color():
+    return (
+        random.randint(0, 255),
+        random.randint(0, 255),
+        random.randint(0, 255),
     )

@@ -2,7 +2,7 @@ import pygame
 import random
 import math
 from .planet import Planet, Star
-from .physics import Physics
+from . import physics
 from renderer.renderer import Renderer
 from quadtree.shapes import Rectangle, Polygon
 from quadtree.quadtree import QuadTree
@@ -12,11 +12,10 @@ class StarSystem:
     def __init__(self):
         self.clock = pygame.time.Clock()
         self.renderer = Renderer()
-        self.physics = Physics()
 
         self.assets = {
             'objects': [],
-            'quadtree': QuadTree(Rectangle(0, 0, 1.1e9, 1.1e9), 1)
+            'quadtree': QuadTree(Rectangle(0, 0, 10e9, 10e9), 1)
         }
 
         self.generate_test_objects()
@@ -26,12 +25,10 @@ class StarSystem:
         while self.running:
             self.clock.tick(26)
 
-
             # self.counter += 1
             # if self.counter % 20 == 0:
             #     self.assets['objects'].append(
             #         Star(3000, 8e6, (random.randint(-500e6, 500e6), random.randint(-500e6, 500e6))))
-
 
             self.print_debug()
 
@@ -39,8 +36,9 @@ class StarSystem:
 
             self.refresh_quadtree()
 
-            self.physics.gravity(self.assets['objects'])
-            self.physics.update_positions(self.assets['objects'], self.clock.get_time())
+            # physics.gravity(self.assets['objects'])
+            physics.barnes_hut_gravity(self.assets['objects'], self.assets['quadtree'], 2)
+            physics.update_positions(self.assets['objects'], self.clock.get_time())
 
             self.renderer.clear_screen()
             self.renderer.draw_all_objects(self.assets)
@@ -49,18 +47,18 @@ class StarSystem:
         pygame.quit()
 
     def generate_test_objects(self):
-        self.assets['objects'].append(Star(3000, 35e6, (0, 0)))
-        self.assets['objects'].append(Planet(300, 5e6, (120e6, 0), (0, -39e6)))
-        self.assets['objects'].append(Planet(5, 1.2e6, (135e6, 0), (0, -3e6)))
-        self.assets['objects'].append(Planet(200, 6e6, (500e6, 0), (0, -20e6)))
-        self.assets['objects'].append(Planet(150, 4e6, (300e6, 0), (0, -25e6)))
-        for i in range (30):
-           self.assets['objects'].append(Planet(random.randint(150, 500), random.randint(1.2e6, 6e6), (random.randint(-500e6, 500e6), random.randint(-500e6, 500e6)), (random.randint(-39e6, 39e6), random.randint(-39e6, 39e6))))
+        self.assets['objects'].append(Star(100000, 35e6, (1e3, 1e3)))
+        self.assets['objects'].append(Planet(3000, 8e6, (120e6, 0), (0, -100e6)))
+        self.assets['objects'].append(Planet(50, 1.2e6, (135e6, 0), (0, -95e6)))
+        self.assets['objects'].append(Planet(2000, 6e6, (500e6, 0), (0, -20e6)))
+        self.assets['objects'].append(Planet(1500, 4e6, (300e6, 0), (0, -25e6)))
+        for i in range (150):
+           self.assets['objects'].append(Planet(random.randint(1000, 10000), random.randint(1.2e6, 6e6), (random.randint(-6e9, 6e9), random.randint(-6e9, 6e9)), (random.randint(-39e6, 39e6), random.randint(-39e6, 39e6))))
 
-    # def add_new_object(self):
+    # def generate_test_objects(self):
     #     self.assets['objects'].append(Star(3000, 35e6, (0, 0)))
-    #     for i in range(5):
-    #         self.assets['objects'].append(Star(3000, 15e6, (random.randint(-500e6, 500e6), random.randint(-500e6, 500e6))))
+    #     for i in range(30):
+    #         self.assets['objects'].append(Star(3000, 12e6, (random.randint(-500e6, 500e6), random.randint(-500e6, 500e6))))
 
     def check_for_keys_pressed(self):
         keys = pygame.key.get_pressed()
@@ -86,9 +84,10 @@ class StarSystem:
                 self.running = False
 
     def refresh_quadtree(self):
-        self.assets['quadtree'] = QuadTree(Rectangle(0, 0, 1.1e9, 1.1e9), 1)
+        self.assets['quadtree'] = QuadTree(Rectangle(0, 0, 10e9, 10e9), 1)
         for object in self.assets['objects']:
             self.assets['quadtree'].insert(object)
+        self.assets['quadtree'].calc_centre_of_mass()
 
     def print_debug(self):
         print('______')
