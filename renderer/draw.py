@@ -26,6 +26,9 @@ def point_at_scale(position, kmPerPixel, resolution, focus):
         int(position[1] / kmPerPixel) + (resolution[1] // 2) - focus[1],
     )
 
+def text_to(Renderer, dest, text, fgcolor=None, bgcolor=None):
+    Renderer.font.render_to(Renderer.window, point_at_scale(dest, Renderer.kmPerPixel, Renderer.resolution, Renderer.focus), text, fgcolor, bgcolor)
+
 def rand_color():
     return (
         random.randint(0, 255),
