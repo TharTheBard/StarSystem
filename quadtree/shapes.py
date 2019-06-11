@@ -17,7 +17,7 @@ class Rectangle():
         return f'Center: {self.x}|{self.y}  Width: {self.width}  Height: {self.height}'
 
     def contains(self, x, y):
-        return self.x - self.half_width < x < self.x + self.half_width and self.y - self.half_height < y < self.y + self.half_height
+        return self.x - self.half_width <= x < self.x + self.half_width and self.y - self.half_height <= y < self.y + self.half_height
 
 class Polygon():
     def __init__(self, color, pointlist, width = 0):

@@ -3,15 +3,26 @@ class CelestialBody:
         self.mass = mass
         self.radius = radius
         self.centre_of_mass = centre_of_mass
+        self.force = 0
 
-class Planet(CelestialBody):
-    def __init__(self, mass, radius, centre_of_mass, velocityVector):
-        super().__init__(mass, radius, centre_of_mass)
-        self.velocityVector = velocityVector #Vector: Horizontal, Vertical | Unit: pixels/second
-        self.isMovable = True
 
-class Star(CelestialBody):
-    def __init__(self, mass, radius, centre_of_mass, velocityVector = (0, 0)):
-        super().__init__(mass, radius, centre_of_mass)
-        self.velocityVector = velocityVector #Vector: Horizontal, Vertical | Unit: pixels/second
-        self.isMovable = False
+class Planet:
+    def __init__(self, mass, radius, centre_of_mass, velocity):
+        self.mass = mass
+        self.radius = radius
+        self.centre_of_mass = centre_of_mass
+        self.force = 0
+        self.velocity = velocity
+
+        self.is_movable = True
+
+
+class Star:
+    def __init__(self, mass, radius, centre_of_mass, velocity=(0, 0)):
+        self.mass = mass
+        self.radius = radius
+        self.centre_of_mass = centre_of_mass
+        self.force = 0
+        self.velocity = velocity
+
+        self.is_movable = False

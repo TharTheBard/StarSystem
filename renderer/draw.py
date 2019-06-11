@@ -1,24 +1,28 @@
 import pygame
 import random
 
-def circle(Renderer, color, pos, radius, width=0):
-    objectPositionInt = point_at_scale(pos, Renderer.kmPerPixel, Renderer.resolution, Renderer.focus)
-    pygame.draw.circle(Renderer.window, color, objectPositionInt, int(radius / Renderer.kmPerPixel), width)
 
-def rect(Renderer, color, Rect, width=0):
-    left_top = point_at_scale((Rect.x - Rect.half_width, Rect.y - Rect.half_height), Renderer.kmPerPixel, Renderer.resolution, Renderer.focus)
-    pygame.draw.rect(Renderer.window,
+def circle(renderer, color, pos, radius, width=0):
+    object_position_int = point_at_scale(pos, renderer.kmPerPixel, renderer.resolution, renderer.focus)
+    pygame.draw.circle(renderer.window, color, object_position_int, int(radius / renderer.kmPerPixel), width)
+
+
+def rect(renderer, color, Rect, width=0):
+    left_top = point_at_scale((Rect.x - Rect.half_width, Rect.y - Rect.half_height), renderer.kmPerPixel, renderer.resolution, renderer.focus)
+    pygame.draw.rect(renderer.window,
                      color,
-                     (left_top[0], left_top[1], Rect.width / Renderer.kmPerPixel, Rect.height / Renderer.kmPerPixel),
+                     (left_top[0], left_top[1], Rect.width / renderer.kmPerPixel, Rect.height / renderer.kmPerPixel),
                      width,
-                    )
+                     )
 
-def polygon(Renderer, color, pointlist, width=0):
+
+def polygon(renderer, color, pointlist, width=0):
     scaled_points = []
     for point in pointlist:
-        scaled_points.append(point_at_scale(point, Renderer.kmPerPixel, Renderer.resolution, Renderer.focus))
+        scaled_points.append(point_at_scale(point, renderer.kmPerPixel, renderer.resolution, renderer.focus))
 
-    pygame.draw.polygon(Renderer.window, color, scaled_points, width)
+    pygame.draw.polygon(renderer.window, color, scaled_points, width)
+
 
 def point_at_scale(position, kmPerPixel, resolution, focus):
     return (
@@ -26,8 +30,10 @@ def point_at_scale(position, kmPerPixel, resolution, focus):
         int(position[1] / kmPerPixel) + (resolution[1] // 2) - focus[1],
     )
 
-def text_to(Renderer, dest, text, fgcolor=None, bgcolor=None):
-    Renderer.font.render_to(Renderer.window, point_at_scale(dest, Renderer.kmPerPixel, Renderer.resolution, Renderer.focus), text, fgcolor, bgcolor)
+
+def text_to(renderer, dest, text, fgcolor=None, bgcolor=None):
+    renderer.font.render_to(renderer.window, point_at_scale(dest, renderer.kmPerPixel, renderer.resolution, renderer.focus), text, fgcolor, bgcolor)
+
 
 def rand_color():
     return (

@@ -2,11 +2,12 @@ from.shapes import Rectangle
 from content import physics
 
 class QuadTree:
-    def __init__(self, boundary: Rectangle, capacity):
+    def __init__(self, boundary: Rectangle, capacity=1):
         self.boundary = boundary
         self.capacity = capacity
         self.objects = []
         self.divided = False
+        self.marked = False
 
         self.northwest = None
         self.northeast = None
@@ -16,13 +17,12 @@ class QuadTree:
         self.mass = None
         self.centre_of_mass = (boundary.x, boundary.y)
 
-
-    def insert(self, object):
-        if not self.boundary.contains(object.centre_of_mass[0], object.centre_of_mass[1]):
+    def insert(self, solar_object):
+        if not self.boundary.contains(solar_object.centre_of_mass[0], solar_object.centre_of_mass[1]):
             return
 
         if len(self.objects) < self.capacity and not self.divided:
-            self.objects.append(object)
+            self.objects.append(solar_object)
         else:
             if not self.divided:
                 self.subdivide()
@@ -31,13 +31,12 @@ class QuadTree:
                 self.southwest.insert(self.objects[0])
                 self.southeast.insert(self.objects[0])
 
-            self.northwest.insert(object)
-            self.northeast.insert(object)
-            self.southwest.insert(object)
-            self.southeast.insert(object)
+            self.northwest.insert(solar_object)
+            self.northeast.insert(solar_object)
+            self.southwest.insert(solar_object)
+            self.southeast.insert(solar_object)
 
             self.objects = []
-
 
     def subdivide(self):
         _ = self.boundary
