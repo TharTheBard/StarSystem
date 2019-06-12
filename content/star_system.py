@@ -1,6 +1,6 @@
 import pygame
 import random
-import math
+
 from .planet import Planet, Star
 from . import physics
 from renderer.renderer import Renderer
@@ -20,6 +20,7 @@ class StarSystem:
         }
 
         self.generate_test_objects()
+        self.load_counter = [0, 0]
 
     def run(self):
         self.running = True
@@ -45,16 +46,19 @@ class StarSystem:
             self.renderer.draw_all_objects(self.assets)
 
             self.check_window_exit()
+
+        print("_____________________")
+        print(f"Avg Load: {self.load_counter[0] / self.load_counter[1]}%")
         pygame.quit()
 
     def generate_test_objects(self):
         self.assets['objects'].append(Star(100000, 35e6, (1e3, 1e3)))
-        self.assets['objects'].append(Planet(3000, 8e6, (120e6, 0), (0, -100e6)))
-        self.assets['objects'].append(Planet(50, 1.2e6, (135e6, 0), (0, -95e6)))
+        self.assets['objects'].append(Planet(3000, 8e6, (125e6, 0), (0, -110e6)))
+        self.assets['objects'].append(Planet(50, 1.2e6, (142e6, 0), (0, -85e6)))
         self.assets['objects'].append(Planet(2000, 6e6, (500e6, 0), (0, -20e6)))
         self.assets['objects'].append(Planet(1500, 4e6, (300e6, 0), (0, -25e6)))
-        for i in range(50):
-            self.assets['objects'].append(Planet(random.randint(1000, 10000), random.randint(1.2e6, 6e6), (random.randint(-4e9, 4e9), random.randint(-4e9, 4e9)), (random.randint(-39e6, 39e6), random.randint(-39e6, 39e6))))
+        for i in range(150):
+            self.assets['objects'].append(Planet(random.randint(5000, 20000), random.randint(1.2e6, 6e6), (random.randint(-4e9, 4e9), random.randint(-4e9, 4e9)), (random.randint(-39e6, 39e6), random.randint(-39e6, 39e6))))
 
     # def generate_test_objects(self):
     #     self.assets['objects'].append(Star(321234, 35e6, (0, 0)))
@@ -89,8 +93,8 @@ class StarSystem:
 
     def refresh_quadtree(self):
         self.assets['quadtree'] = self.init_quadtree()
-        for object in self.assets['objects']:
-            self.assets['quadtree'].insert(object)
+        for obj in self.assets['objects']:
+            self.assets['quadtree'].insert(obj)
         self.assets['quadtree'].calc_centre_of_mass()
 
     def print_debug(self):
@@ -98,6 +102,9 @@ class StarSystem:
         # print(self.clock.get_time())
         # print(self.clock.get_rawtime())
         load = int(self.clock.get_rawtime() / 38 * 100)
+        self.load_counter[0] += load
+        self.load_counter[1] += 1
+
         print(f"Load: {load}%")
         print(f'Focus: {self.renderer.focus}')
         print(f'kmPerPixel: {self.renderer.kmPerPixel}')

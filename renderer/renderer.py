@@ -4,6 +4,7 @@ from quadtree.shapes import Rectangle
 from . import draw
 import settings
 
+
 class Renderer:
     def __init__(self):
         pygame.init()
@@ -15,7 +16,7 @@ class Renderer:
         self.focus = settings.INIT_FOCUS
 
         self.window = pygame.display.set_mode(self.resolution)
-        self.show_quadtree = True
+        self.show_quadtree = False
 
     def clear_screen(self):
         self.window.fill((0, 0, 0))

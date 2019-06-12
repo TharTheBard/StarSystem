@@ -1,6 +1,4 @@
-from pygame import Rect
-
-class Rectangle():
+class Rectangle:
     def __init__(self, x, y, width, height):
         # super().__init__((x - width / 2, y - height / 2), (x + width / 2, y + height / 2))
         self.x = x
@@ -19,7 +17,8 @@ class Rectangle():
     def contains(self, x, y):
         return self.x - self.half_width <= x < self.x + self.half_width and self.y - self.half_height <= y < self.y + self.half_height
 
-class Polygon():
+
+class Polygon:
     def __init__(self, color, pointlist, width = 0):
         self.color = color
         self.pointlist = pointlist

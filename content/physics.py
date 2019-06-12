@@ -1,10 +1,11 @@
-import pygame
 import math
-from typing import List, Union
+from typing import List, Union, Tuple
 
 from content.planet import Planet, Star
 from quadtree.quadtree import QuadTree
 from settings import GRAVITATIONAL_CONSTANT as G
+
+Vector = Tuple[float, float]
 
 
 def update_positions(objects, milliseconds_passed):
@@ -25,23 +26,23 @@ def barnes_hut_gravity(objects: List[Union[Planet, Star]], quadtree, theta):
         obj.velocity = vector_sum(obj.velocity, acceleration_from_force_mass(obj.force, obj.mass))
 
 
-def tree_force(root: QuadTree, obj: Union[Star, Planet], theta: float = 1) -> tuple:
+def tree_force(root: QuadTree, obj: Union[Star, Planet], theta: float = 1) -> Vector:
     """
     Recursively calculates gravitational force on an object *obj* in a *root* of a quadtree
     :param root:  Root of the QuadTree the object is in
     :param obj:   Object, the gravity force is being calculated for
-    :param theta: Higher the theta, the faster the calculation is, but less accurate the gravity is
+    :param theta: Higher the theta, the faster the calculation is, but less accurate
     :return:      Force vector for the object
     """
     r = distance(obj.centre_of_mass, root.centre_of_mass)
 
     if not root.divided:
-        root.marked = True
+        # root.marked = True
         return box_force(root, obj, r)
     else:
         w = root.boundary.width
         if w/r < theta:
-            root.marked = True
+            # root.marked = True
             return box_force(root, obj, r)
         else:
             return vector_sum(
@@ -52,7 +53,7 @@ def tree_force(root: QuadTree, obj: Union[Star, Planet], theta: float = 1) -> tu
             )
 
 
-def box_force(box: QuadTree, obj: Union[Star, Planet], r: float) -> tuple:
+def box_force(box: QuadTree, obj: Union[Star, Planet], r: float) -> Vector:
     """
          pre_force  *  (  temp_x  ,  temp_y  )
 
@@ -70,7 +71,7 @@ def box_force(box: QuadTree, obj: Union[Star, Planet], r: float) -> tuple:
     return pre_force * temp_x, pre_force * temp_y
 
 
-def distance(first_pos: tuple, second_pos: tuple) -> float:
+def distance(first_pos: Vector, second_pos: Vector) -> float:
     if first_pos == second_pos:
         return 0
     return math.sqrt((second_pos[0] - first_pos[0]) ** 2 + (second_pos[1] - first_pos[1]) ** 2)
@@ -90,7 +91,12 @@ def n_body_centre_of_mass(*args: QuadTree) -> tuple:
         return sum_mass_times_x, sum_mass_times_y
 
 
-def vector_sum(*args: tuple) -> tuple:
+def vector_sum(*args: Vector) -> Vector:
+    """
+    (a, b) + (c, d) + ... + (y, z)  =  (a + c + ... + y, b + d + ... + z)
+    :param args: Any number of tuples with two floats
+    :return: A tuple consisting of two floats
+    """
     x = 0
     y = 0
     for vector in args:
@@ -99,7 +105,7 @@ def vector_sum(*args: tuple) -> tuple:
     return x, y
 
 
-def acceleration_from_force_mass(force: tuple, mass) -> tuple:
+def acceleration_from_force_mass(force: Vector, mass) -> Vector:
     """
     :param force: Vector of acting force on an object
     :param mass:  Mass of an object
